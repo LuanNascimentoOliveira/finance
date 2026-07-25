@@ -7,5 +7,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface FinanceMapper {
 
-    FinanceResponseDTO toDTO(Finance finance);
+    FinanceResponseDTO toResponseDTO(Finance finance);
 }

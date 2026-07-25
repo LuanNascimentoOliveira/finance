@@ -1,7 +1,7 @@
-package com.finance.api.controller;
+package com.finance.api.controller.financial;
 
 import com.finance.api.model.DTO.response.FinanceResponseDTO;
-import com.finance.api.model.service.imp.FinanceServiceImp;
+import com.finance.api.model.service.imp.FinanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class FinanceController {
 
-    private final FinanceServiceImp financeServiceImp;
+    private final FinanceService financeServiceImp;
 
     @GetMapping()
     public Page<FinanceResponseDTO> findAll(Pageable pageable){
