@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CategoryService {
 
-    List<CategoryResponseDTO> findAll();
+    List<CategoryResponseDTO> findAllCategory();
 }
