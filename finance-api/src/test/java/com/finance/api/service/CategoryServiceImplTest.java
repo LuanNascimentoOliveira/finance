@@ -24,14 +24,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class CategoryServiceImplTest {
 
+    @InjectMocks
+    private CategoryServiceImpl categoryServiceImpl;
+
     @Mock
     private CategoryRepository categoryRepository;
 
     @Mock
     private CategoryMapper categoryMapper;
-
-    @InjectMocks
-    private CategoryServiceImpl categoryServiceImpl;
 
     private Category category;
     private CategoryResponseDTO categoryResponseDTO;
@@ -57,7 +57,4 @@ public class CategoryServiceImplTest {
         assertEquals(1, result.size());
         assertEquals(categoryResponseDTO, result.get(0));
     }
-
-
-
 }
