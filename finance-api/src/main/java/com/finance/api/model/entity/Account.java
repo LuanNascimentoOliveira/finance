@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 @Data
 @Entity
@@ -18,18 +17,13 @@ import java.time.LocalDate;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "financeiro")
-public class Finance extends BaseEntity{
+@Table(name = "ACCOUNT")
+public class Account extends BaseEntity {
 
-    @Column(name = "data_referencia")
-    private LocalDate referenceDate;
+    @Column(name = "NAME", nullable = false, unique = true, length = 100)
+    private String name;
 
-    @Column(name = "saldo_anterior")
-    private BigDecimal previousBalance;
+    @Column(name = "BALANCE", nullable = false, precision = 10, scale = 2)
+    private BigDecimal balance;
 
-    @Column(name = "salario")
-    private BigDecimal salary;
-
-    @Column(name = "outras_entradas")
-    private BigDecimal otherEntries;
 }

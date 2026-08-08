@@ -28,6 +28,6 @@ public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 }

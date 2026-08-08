@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record ResumeBalanceResponseDTO(
-        LocalDate referenceDate,
+        LocalDate expenseDate,
         BigDecimal previousBalance,
         BigDecimal salary,
         BigDecimal otherEntries,

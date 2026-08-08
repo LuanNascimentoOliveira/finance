@@ -1,6 +1,5 @@
 package com.finance.api.controller.resume;
 
-import com.finance.api.model.DTO.response.ResumeBalanceResponseDTO;
 import com.finance.api.model.DTO.response.ResumeResponseDTO;
 import com.finance.api.model.service.imp.ResumeService;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +21,5 @@ public class SummariesController {
     public Page<ResumeResponseDTO> findAll(Pageable pageable){
 
         return resumeService.findAllResume(pageable);
-
-    }
-
-    @GetMapping("/balances")
-    public Page<ResumeBalanceResponseDTO> findAllResumeBalance(Pageable pageable){
-
-        return resumeService.findAllResumeWithBalance(pageable);
     }
 }

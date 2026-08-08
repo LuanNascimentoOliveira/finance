@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record ResumeResponseDTO(
-        FinanceResponseDTO finance,
+        AccountResponseDTO account,
         CategoryResponseDTO category,
+        String description,
         BigDecimal amount,
-        LocalDate expenseDate,
-        String description
+        LocalDate postingDate
 ) {
 }

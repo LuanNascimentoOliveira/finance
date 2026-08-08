@@ -15,12 +15,12 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "categorias")
+@Table(name = "CATEGORY")
 public class Category extends BaseEntity{
 
-    @Column(name = "nome", nullable = false, unique = true, length = 100)
+    @Column(name = "NAME", nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(name = "ativo", nullable = false)
+    @Column(name = "ACTIVE", nullable = false)
     private Boolean active;
 }

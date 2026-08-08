@@ -21,23 +21,24 @@ import java.time.LocalDate;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "despesas")
-public class Expense extends BaseEntity {
+@Table(name = "ACCOUNTING_ENTRY")
+public class AccountingEntry extends BaseEntity{
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "financeiro_id", nullable = false)
-    private Finance financialId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    private Account account;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "categoria_id", nullable = false)
-    private Category categoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
 
-    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
+    @Column(name = "DESCRIPTION", nullable = false, length = 100)
+    private String description;
+
+    @Column(name = "AMOUNT", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "data_despesa")
-    private LocalDate expenseDate;
+    @Column(name = "POSTING_DATE", nullable = false)
+    private LocalDate postingDate;
 
-    @Column(name = "descricao", nullable = false, length = 100)
-    private String description;
 }
