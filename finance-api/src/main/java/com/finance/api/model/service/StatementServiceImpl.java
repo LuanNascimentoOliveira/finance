@@ -59,9 +59,9 @@ public class StatementServiceImpl implements StatementService {
         Account account  = accountRepository.findById(accountId)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
 
-            switch (AccountingEntryTypeEnum.valueOf(accountingEntryType .getType())) {
-                case CREDIT -> account.setBalance(account .getBalance().add(amount));
-                case DEBIT -> account.setBalance(account .getBalance().subtract(amount));
+            switch (AccountingEntryTypeEnum.valueOf(accountingEntryType.getType())) {
+                case CREDIT -> account.setBalance(account.getBalance().add(amount));
+                case DEBIT -> account.setBalance(account.getBalance().subtract(amount));
             }
     }
 }
