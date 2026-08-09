@@ -18,10 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Optional;
-
-import static com.finance.api.model.enums.AccountingEntryTypeEnum.CREDIT;
-import static com.finance.api.model.enums.AccountingEntryTypeEnum.DEBIT;
 
 @Service
 @RequiredArgsConstructor
@@ -45,30 +41,26 @@ public class StatementServiceImpl implements StatementService {
 
         AccountingEntry accountingEntry = accountingEntryMapper.toEntity(accountingEntryRequestDTO);
 
-        Optional<AccountingEntryType> findAccountingEntryType = accountingEntryTypeRepository.findById(accountingEntry.getAccountingEntryType().getId());
+        AccountingEntryType findAccountingEntryType = accountingEntryTypeRepository.findById(accountingEntry.getAccountingEntryType().getId())
+                .orElseThrow(() ->
+                        new RuntimeException("Accounting entry type not found")
+                );
 
-        if(findAccountingEntryType.isPresent()){
+        AccountingEntryTypeEnum type = AccountingEntryTypeEnum.valueOf(findAccountingEntryType.getType());
 
-            switch (AccountingEntryTypeEnum.valueOf(findAccountingEntryType.get().getType())){
-                case CREDIT -> updateAccountBalance(accountingEntry.getAccount().getId(), accountingEntry.getAmount(), CREDIT);
-                case DEBIT -> updateAccountBalance(accountingEntry.getAccount().getId(), accountingEntry.getAmount(), DEBIT);
-            }
-        }
+        updateAccountBalance(accountingEntry.getAccount().getId(), accountingEntry.getAmount(), type);
 
         accountingEntryRepository.save(accountingEntry);
     }
 
     private void updateAccountBalance(Long accountId, BigDecimal amount, AccountingEntryTypeEnum type) {
 
-        Optional<Account> findAccount = accountRepository.findById(accountId);
+        Account findAccount = accountRepository.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found"));
 
-        if(findAccount.isPresent()) {
             switch (type) {
-                case CREDIT -> findAccount.get().setBalance(findAccount.get().getBalance().add(amount));
-                case DEBIT -> findAccount.get().setBalance(findAccount.get().getBalance().subtract(amount));
+                case CREDIT -> findAccount.setBalance(findAccount.getBalance().add(amount));
+                case DEBIT -> findAccount.setBalance(findAccount.getBalance().subtract(amount));
             }
-        }
     }
-
-
 }
