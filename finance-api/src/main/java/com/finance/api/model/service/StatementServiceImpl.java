@@ -41,26 +41,27 @@ public class StatementServiceImpl implements StatementService {
 
         AccountingEntry accountingEntry = accountingEntryMapper.toEntity(accountingEntryRequestDTO);
 
-        AccountingEntryType findAccountingEntryType = accountingEntryTypeRepository.findById(accountingEntry.getAccountingEntryType().getId())
-                .orElseThrow(() ->
-                        new RuntimeException("Accounting entry type not found")
-                );
-
-        AccountingEntryTypeEnum type = AccountingEntryTypeEnum.valueOf(findAccountingEntryType.getType());
-
-        updateAccountBalance(accountingEntry.getAccount().getId(), accountingEntry.getAmount(), type);
+        updateAccountBalance(
+                accountingEntry.getAccount().getId(),
+                accountingEntry.getAmount(),
+                accountingEntry.getAccountingEntryType().getId());
 
         accountingEntryRepository.save(accountingEntry);
     }
 
-    private void updateAccountBalance(Long accountId, BigDecimal amount, AccountingEntryTypeEnum type) {
+    private void updateAccountBalance(Long accountId, BigDecimal amount, Long typeId) {
 
-        Account findAccount = accountRepository.findById(accountId)
+        AccountingEntryType accountingEntryType  = accountingEntryTypeRepository.findById(typeId)
+                .orElseThrow(() ->
+                        new RuntimeException("Accounting entry type not found")
+                );
+
+        Account account  = accountRepository.findById(accountId)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
 
-            switch (type) {
-                case CREDIT -> findAccount.setBalance(findAccount.getBalance().add(amount));
-                case DEBIT -> findAccount.setBalance(findAccount.getBalance().subtract(amount));
+            switch (AccountingEntryTypeEnum.valueOf(accountingEntryType .getType())) {
+                case CREDIT -> account .setBalance(account .getBalance().add(amount));
+                case DEBIT -> account .setBalance(account .getBalance().subtract(amount));
             }
     }
 }
