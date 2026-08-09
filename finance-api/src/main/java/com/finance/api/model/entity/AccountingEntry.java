@@ -41,4 +41,8 @@ public class AccountingEntry extends BaseEntity{
     @Column(name = "POSTING_DATE", nullable = false)
     private LocalDate postingDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ACCOUNTING_ENTRY_TYPE_ID", nullable = false)
+    private AccountingEntryType accountingEntryType;
+
 }

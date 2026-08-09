@@ -2,8 +2,8 @@ package com.finance.api.service;
 
 import com.finance.api.builder.CategoryMother;
 import com.finance.api.model.entity.Category;
-import com.finance.api.model.mapper.ResumeMapper;
-import com.finance.api.model.service.ResumeServiceImpl;
+import com.finance.api.model.mapper.AccountingEntryMapper;
+import com.finance.api.model.service.StatementServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,10 +16,10 @@ import org.springframework.data.domain.Pageable;
 public class ResumeServiceImplTest {
 
     @InjectMocks
-    private ResumeServiceImpl resumeService;
+    private StatementServiceImpl resumeService;
 
     @Mock
-    private ResumeMapper resumeMapper;
+    private AccountingEntryMapper accountingEntryMapper;
 
     private Category category;
 
