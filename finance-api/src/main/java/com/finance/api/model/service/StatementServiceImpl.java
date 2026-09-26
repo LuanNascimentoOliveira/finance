@@ -29,6 +29,9 @@ public class StatementServiceImpl implements StatementService {
 
     private final AccountingEntryMapper accountingEntryMapper;
 
+    private final static String ACCOUNT_ENTRY_TYPE_NOT_FOUND = "accounting.entry.type.not.found";
+    private final static String ACCOUNT_NOT_FOUND = "account.not.found";
+
     @Override
     @Transactional(readOnly = true)
     public Page<AccountingEntryResponseDTO> findAllAccountingEntry(Pageable pageable) {
@@ -53,11 +56,11 @@ public class StatementServiceImpl implements StatementService {
 
         AccountingEntryType accountingEntryType  = accountingEntryTypeRepository.findById(typeId)
                 .orElseThrow(() ->
-                        new RuntimeException("Accounting entry type not found")
+                        new RuntimeException(ACCOUNT_ENTRY_TYPE_NOT_FOUND)
                 );
 
         Account account  = accountRepository.findById(accountId)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new RuntimeException(ACCOUNT_NOT_FOUND));
 
             switch (AccountingEntryTypeEnum.valueOf(accountingEntryType.getType())) {
                 case CREDIT -> account.setBalance(account.getBalance().add(amount));

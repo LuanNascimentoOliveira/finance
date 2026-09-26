@@ -1,5 +1,6 @@
 package com.finance.api.builder;
 
+import com.finance.api.model.DTO.request.AccountingEntryRequestDTO;
 import com.finance.api.model.DTO.response.AccountingEntryResponseDTO;
 import com.finance.api.model.DTO.response.AccountingEntryTypeResponseDTO;
 import com.finance.api.model.DTO.response.CategoryResponseDTO;
@@ -14,14 +15,10 @@ import java.util.Random;
 
 public class StatementMother {
 
-    public static AccountingEntry build(Category category, AccountingEntryType accountingEntryType){
+    public static AccountingEntry build(Account account, Category category, AccountingEntryType accountingEntryType){
         return AccountingEntry.builder()
                 .id(new Random().nextLong())
-                .account(Account.builder()
-                        .id(new Random().nextLong())
-                        .name("Name Account")
-                        .balance(BigDecimal.TEN)
-                        .build())
+                .account(account)
                 .category(category)
                 .description("Description")
                 .amount(BigDecimal.TEN)
@@ -30,18 +27,29 @@ public class StatementMother {
                 .build();
     }
 
+    public static AccountingEntryRequestDTO buildRequestDTO(){
+        return new AccountingEntryRequestDTO(
+                new Random().nextLong(),
+                1L,
+                "Description",
+                BigDecimal.TEN,
+                LocalDate.now(),
+                1L
+        );
+    }
+
     public static AccountingEntryResponseDTO buildResponseDTO(){
         return new AccountingEntryResponseDTO(
                new CategoryResponseDTO(
                        new Random().nextLong(),
                        "CAR"
                ),
-                "DESCRIPTIO",
+                "Description",
                 BigDecimal.TEN,
                LocalDate.now(),
                new AccountingEntryTypeResponseDTO(
                        new Random().nextLong(),
-                       "CREADITO"
+                       "CREDIT"
                )
         );
     }

@@ -13,6 +13,9 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  messages:
+    basename: messages/messages
+
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
